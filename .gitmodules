@@ -1,0 +1,3 @@
+[submodule "bitclock"]
+	path = bitclock
+	url = git@github.com:PlebeiusGaragicus/bitclock.git
