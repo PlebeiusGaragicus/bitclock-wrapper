@@ -1,6 +1,13 @@
 just testing some things out...
 
 
+## init submodule
+```sh
+# git submodule add https://github.com/PlebeiusGaragicus/bitclock bitclock
+git submodule add git@github.com:PlebeiusGaragicus/bitclock.git bitclock
+git submodule update --init --recursive
+```
+
 ---
 
 
@@ -23,40 +30,41 @@ Install the system dependencies below to build this project by following the ins
 - [embassy-sdk](https://github.com/Start9Labs/embassy-os/tree/master/backend)
 
 ## Build environment
-Prepare your embassyOS build environment. In this example we are using Ubuntu 20.04.
-1. Install docker
-```
-curl -fsSL https://get.docker.com | bash
-sudo usermod -aG docker "$USER"
-exec sudo su -l $USER
-```
+Prepare your embassyOS build environment - I have customized this flow for MacOS
+1. Install docker desktop
+
 2. Set buildx as the default builder
 ```
 docker buildx install
 docker buildx create --use
 ```
+
 3. Enable cross-arch emulated builds in docker
 ```
 docker run --privileged --rm linuxkit/binfmt:v0.8
 ```
+
 4. Install yq
 ```
-sudo snap install yq
+brew install yq
 ```
+
 5. Install deno
 ```
-sudo snap install deno
+brew install deno
 ```
+
 6. Install essentials build packages
 ```
-sudo apt-get install -y build-essential openssl libssl-dev libc6-dev clang libclang-dev ca-certificates
+# I didn't do this step
+# brew install build-essential openssl libssl-dev libc6-dev clang libclang-dev ca-certificates
 ```
+
 7. Install Rust
 ```
-curl https://sh.rustup.rs -sSf | sh
-# Choose nr 1 (default install)
-source $HOME/.cargo/env
+brew install rust
 ```
+
 8. Build and install embassy-sdk
 ```
 cd ~/ && git clone --recursive https://github.com/Start9Labs/embassy-os.git
@@ -64,6 +72,7 @@ cd embassy-os/backend/
 ./install-sdk.sh
 embassy-sdk init
 ```
+
 Now you are ready to build the `hello-world` package!
 
 ## Cloning
@@ -71,8 +80,7 @@ Now you are ready to build the `hello-world` package!
 Clone the project locally:
 
 ```
-git clone https://github.com/Start9Labs/hello-world-wrapper.git
-cd hello-world-wrapper
+
 git submodule update --init --recursive
 ```
 

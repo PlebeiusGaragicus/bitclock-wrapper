@@ -5,9 +5,9 @@ id: bitclock
 
 # A human readable service title
 title: "bitclock"
-# Service version - accepts up to four digits, where the last confirms to revisions necessary for EmbassyOS - see documentation: https://github.com/Start9Labs/emver-rs. This value will change with each release of the service.
 
-version: 1.0.0.1
+# Service version - accepts up to four digits, where the last confirms to revisions necessary for EmbassyOS - see documentation: https://github.com/Start9Labs/emver-rs. This value will change with each release of the service.
+version: 1.0.0.3
 
 # Release notes for the update - can be a string, paragraph or URL
 release-notes: "Revamped for EmabssyOS 0.3.3"
@@ -27,6 +27,7 @@ marketing-site: "https://github.com/PlebeiusGaragicus/bitclock"
 
 build: ["make"]
 # Human readable descriptors for the service. These are used throughout the EmbassyOS user interface, primarily in the marketplace.
+
 description:
   # This is the first description visible to the user in the marketplace.
   short: Example service
@@ -73,9 +74,32 @@ main:
     # Specifies where on the service's file system its persistence directory should be mounted prior to service startup
     main: /root
 
-# This is where health checks would be defined - see a more advanced example in https://github.com/Start9Labs/embassy-pages-wrapper
-health-checks: {}
+
+
+
+
+
+
+health-checks:
+  web:
+    name: Web Interface
+    success-message: Bitclock is ready.
+    type: docker
+    image: main
+    entrypoint: check-web.sh
+    args: []
+    io-format: json
+    inject: true
+
+
+
+
+
 config: ~
+
+
+
+
 properties: ~
 #  type: script
 # This denotes any data, asset, or pointer volumes that should be connected when the "docker run" command is invoked
@@ -83,6 +107,14 @@ volumes:
   # This is the image where files from the project asset directory will go
   main:
     type: data
+
+
+
+
+
+
+
+
 # This specifies how to configure the port mapping for exposing the service over TOR and LAN (if applicable). Many interfaces can be specified depending on the needs of the service. If it can be launched over a Local Area Network connection, specify a `lan-config`. Otherwise, at minimum, a `tor-config` must be specified.
 interfaces:
   # This key is the internal name that the OS will use to configure the interface
@@ -91,10 +123,10 @@ interfaces:
     name: User Interface
     # A descriptive description of what the interface does
     description: A simple user interface that is expected to display the text "Hello Word"
-    tor-config:
-      # Port mappings are from the external port to the internal container port
-      port-mapping:
-        80: "3000"
+    # tor-config:
+    # Port mappings are from the external port to the internal container port
+    # port-mapping:
+    # 80: "3000"
     # Port mappings are from the external port to the internal container port
     lan-config:
       443:
@@ -145,6 +177,7 @@ backup:
     mounts:
       BACKUP: "/mnt/backup"
       main: "/root/data"
+
 migrations:
   from:
     "*":
