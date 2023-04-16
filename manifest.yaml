@@ -7,7 +7,7 @@ id: bitclock
 title: "bitclock"
 
 # Service version - accepts up to four digits, where the last confirms to revisions necessary for EmbassyOS - see documentation: https://github.com/Start9Labs/emver-rs. This value will change with each release of the service.
-version: 1.0.0.3
+version: 1.0.0.5
 
 # Release notes for the update - can be a string, paragraph or URL
 release-notes: "Revamped for EmabssyOS 0.3.3"
@@ -34,7 +34,7 @@ description:
   # This description will display with additional details in the service's individual marketplace page
   long: |
     Hello World is a bare-bones service that launches a web interface to say "Hello World", and nothing more.
-
+########################## ASSETS
 # These assets are static files necessary for packaging the service for Start9 (into an s9pk). Each value is a path to the specified asset. If an asset is missing from this list, or otherwise denoted, it will be defaulted to the values denoted below.
 assets:
   # Default = LICENSE.md
@@ -60,6 +60,7 @@ assets:
 #       main: /root
 # ----- END commented section -----
 
+########################## MAIN
 main:
   # Docker is currently the only action implementation
   type: docker
@@ -74,12 +75,7 @@ main:
     # Specifies where on the service's file system its persistence directory should be mounted prior to service startup
     main: /root
 
-
-
-
-
-
-
+########################## HEALTH-CHECKS
 health-checks:
   web:
     name: Web Interface
@@ -91,30 +87,26 @@ health-checks:
     io-format: json
     inject: true
 
+########################## CONFIG
+# config: ~
+config:
+  get:
+    type: script
+  set:
+    type: script
 
+########################## PROPERTIES
+properties:
+  type: script
 
-
-
-config: ~
-
-
-
-
-properties: ~
-#  type: script
+########################## VOLUMES
 # This denotes any data, asset, or pointer volumes that should be connected when the "docker run" command is invoked
 volumes:
   # This is the image where files from the project asset directory will go
   main:
     type: data
 
-
-
-
-
-
-
-
+########################## INTERFACES
 # This specifies how to configure the port mapping for exposing the service over TOR and LAN (if applicable). Many interfaces can be specified depending on the needs of the service. If it can be launched over a Local Area Network connection, specify a `lan-config`. Otherwise, at minimum, a `tor-config` must be specified.
 interfaces:
   # This key is the internal name that the OS will use to configure the interface
@@ -138,8 +130,9 @@ interfaces:
     protocols:
       - tcp
       - http
-
+########################## DEPENDENCIES
 dependencies: {}
+########################## BACKUP
 # Specifies how backups should be run for this service. The default EmbassyOS provided option is to use the duplicity backup library on a system image (compat)
 backup:
   create:
@@ -177,7 +170,7 @@ backup:
     mounts:
       BACKUP: "/mnt/backup"
       main: "/root/data"
-
+########################## MIGRATIONS
 migrations:
   from:
     "*":
