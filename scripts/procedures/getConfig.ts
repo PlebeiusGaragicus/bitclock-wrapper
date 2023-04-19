@@ -3,16 +3,19 @@
 import { types as T, compat } from "../deps.js";
 
 export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
-    "rainfallcolor": {
-        "name": "Rainfall Color",
-        "description":
-            "The color of the rainfall.",
+    "color": {
         "type": "enum",
-        "values": [
-            "orange",
-            "green",
+        "name": "Color",
+        "description": "Choose a color: green or orange",
+        "default": [
+            "green"
         ],
-        "value-names": {},
-        "default": "green",
+        "spec": {
+            values: ["green", "orange"],
+            "value-names": {
+                "green": "Green",
+                "orange": "Orange"
+            }
+        }
     },
 })
